@@ -6,19 +6,22 @@ import (
 	"net/http"
 
 	"github.com/kevinmso/estudos-go/internal/database"
+	"github.com/kevinmso/estudos-go/internal/models"
 	"github.com/labstack/echo/v4"
 )
 
 type Server interface {
 	Start() error
+	Readiness(ctx echo.Context) error
+	Liveness(ctx echo.Context) error
 }
 
 type EchoServer struct {
 	echo *echo.Echo
-	DB   *database.DatabaseClient
+	DB   database.DatabaseClient
 }
 
-func newEchoServer(db *database.DatabaseClient) Server {
+func newEchoServer(db database.DatabaseClient) Server {
 	server := &EchoServer{
 		echo: echo.New(),
 		DB:   db,
@@ -35,6 +38,19 @@ func (e *EchoServer) Start() error {
 	return nil
 }
 
-func (e *EchoServer) registerRoutes() {
+func (s *EchoServer) registerRoutes() {
+	s.echo.GET("/readiness", s.Readiness)
+	s.echo.GET("/liveness", s.Liveness)
+}
 
+func (s *EchoServer) Readiness(ctx echo.Context) error {
+	ready := s.DB.Ready()
+	if ready {
+		return ctx.JSON(http.StatusOK, models.Health{Status: "ready"})
+	}
+	return ctx.JSON(http.StatusServiceUnavailable, models.Health{Status: "unavailable"})
+}
+
+func (s *EchoServer) Liveness(ctx echo.Context) error {
+	return ctx.JSON(http.StatusOK, models.Health{Status: "ok"})
 }
