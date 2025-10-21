@@ -21,7 +21,7 @@ type EchoServer struct {
 	DB   database.DatabaseClient
 }
 
-func newEchoServer(db database.DatabaseClient) Server {
+func NewEchoServer(db database.DatabaseClient) Server {
 	server := &EchoServer{
 		echo: echo.New(),
 		DB:   db,
