@@ -32,8 +32,8 @@ func NewEchoServer(db database.DatabaseClient) Server {
 	return server
 }
 
-func (e *EchoServer) Start() error {
-	if err := e.echo.Start(":8080"); err != nil && err != http.ErrServerClosed {
+func (s *EchoServer) Start() error {
+	if err := s.echo.Start(":8080"); err != nil && err != http.ErrServerClosed {
 		log.Fatalf("could not start echo server: %v", err)
 		return err
 	}
