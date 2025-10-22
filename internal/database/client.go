@@ -1,12 +1,14 @@
 package database
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"os"
 	"time"
 
 	"github.com/joho/godotenv"
+	"github.com/kevinmso/estudos-go/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
@@ -14,6 +16,8 @@ import (
 
 type DatabaseClient interface {
 	Ready() bool
+
+	GetCustomersByEmail(ctx context.Context, email string) ([]models.Customer, error)
 }
 
 type Client struct {
