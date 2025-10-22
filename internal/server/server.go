@@ -14,6 +14,8 @@ type Server interface {
 	Start() error
 	Readiness(ctx echo.Context) error
 	Liveness(ctx echo.Context) error
+
+	GetCustomersByEmail(ctx echo.Context) error
 }
 
 type EchoServer struct {
@@ -41,6 +43,9 @@ func (e *EchoServer) Start() error {
 func (s *EchoServer) registerRoutes() {
 	s.echo.GET("/readiness", s.Readiness)
 	s.echo.GET("/liveness", s.Liveness)
+
+	customer_group := s.echo.Group("/customers")
+	customer_group.GET("", s.GetCustomersByEmail)
 }
 
 func (s *EchoServer) Readiness(ctx echo.Context) error {
