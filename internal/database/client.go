@@ -20,7 +20,7 @@ type Client struct {
 	DB *gorm.DB
 }
 
-func newDatabaseClient() (DatabaseClient, error) {
+func NewDatabaseClient() (DatabaseClient, error) {
 	// Carregar .env
 	if err := godotenv.Load(); err != nil {
 		log.Printf("Não foi possível carregar .env: %v", err)
