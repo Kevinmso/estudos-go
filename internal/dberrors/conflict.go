@@ -1,7 +1,7 @@
 package dberrors
 
-type conflictError struct{}
+type ConflictError struct{}
 
-func (e *conflictError) Error() string {
+func (e *ConflictError) Error() string {
 	return "attempted to create a record with an existing key"
 }
