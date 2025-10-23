@@ -23,6 +23,9 @@ type DatabaseClient interface {
 	GetAllServices(ctx context.Context) ([]models.Service, error)
 
 	AddCustomer(ctx context.Context, customer *models.Customer) (*models.Customer, error)
+	AddService(ctx context.Context, service *models.Service) (*models.Service, error)
+	AddVendor(ctx context.Context, vendor *models.Vendor) (*models.Vendor, error)
+	AddProduct(ctx context.Context, product *models.Product) (*models.Product, error)
 }
 
 type Client struct {
