@@ -18,6 +18,7 @@ type Server interface {
 	GetCustomersByEmail(ctx echo.Context) error
 	GetAllVendors(ctx echo.Context) error
 	GetProductsByVendor(ctx echo.Context) error
+	GetAllServices(ctx echo.Context) error
 
 	AddCustomer(ctx echo.Context) error
 }
@@ -57,6 +58,9 @@ func (s *EchoServer) registerRoutes() {
 
 	productGroup := s.echo.Group("/products")
 	productGroup.GET("", s.GetProductsByVendor)
+
+	serviceGroup := s.echo.Group("/services")
+	serviceGroup.GET("", s.GetAllServices)
 }
 
 func (s *EchoServer) Readiness(ctx echo.Context) error {

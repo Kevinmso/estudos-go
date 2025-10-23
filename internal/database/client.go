@@ -20,6 +20,7 @@ type DatabaseClient interface {
 	GetCustomersByEmail(ctx context.Context, email string) ([]models.Customer, error)
 	GetAllVendors(ctx context.Context) ([]models.Vendor, error)
 	GetProductsByVendor(ctx context.Context, vendorId string) ([]models.Product, error)
+	GetAllServices(ctx context.Context) ([]models.Service, error)
 
 	AddCustomer(ctx context.Context, customer *models.Customer) (*models.Customer, error)
 }
