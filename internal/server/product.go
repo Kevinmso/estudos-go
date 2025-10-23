@@ -11,7 +11,7 @@ func (s *EchoServer) GetProductsByVendor(ctx echo.Context) error {
 
 	products, err := s.DB.GetProductsByVendor(ctx.Request().Context(), vendor)
 	if err != nil {
-		return err
+		return ctx.JSON(http.StatusInternalServerError, err)
 	}
 	return ctx.JSON(http.StatusOK, products)
 }
