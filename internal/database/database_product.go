@@ -8,8 +8,8 @@ import (
 
 func (c Client) GetProductsByVendor(ctx context.Context, vendorId string) ([]models.Product, error) {
 	var products []models.Product
-	result := c.DB.WithContext(ctx).Find(&products).
-		Where(&models.Product{VendorId: vendorId})
+	result := c.DB.WithContext(ctx).
+		Where(&models.Product{VendorId: vendorId}).Find(&products)
 
 	if result.Error != nil {
 		return nil, result.Error

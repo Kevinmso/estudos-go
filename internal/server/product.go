@@ -7,7 +7,7 @@ import (
 )
 
 func (s *EchoServer) GetProductsByVendor(ctx echo.Context) error {
-	vendor := ctx.Param("vendor")
+	vendor := ctx.QueryParam("vendor")
 
 	products, err := s.DB.GetProductsByVendor(ctx.Request().Context(), vendor)
 	if err != nil {
